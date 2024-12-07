@@ -1,348 +1,366 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brain Hive</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Hive</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      body {
-        font-family: 'Poppins', sans-serif;
-        background: #f4f4f4;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #121212;
-      }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #121212;
+    }
 
-      .container {
-        text-align: center;
-        background: #ffffff;
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 500px;
-      }
+    .container {
+      text-align: center;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
 
-      h1 {
-        font-size: 32px;
-        margin-bottom: 15px;
-        color: #000000;
-        font-weight: 600;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #000000;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-      p {
-        font-size: 16px;
-        margin-bottom: 20px;
-        color: #555;
-      }
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #555;
+    }
 
-      .hidden {
-        display: none;
-      }
+    .hidden {
+      display: none;
+    }
 
-      #countdown {
-        font-size: 48px;
-        font-weight: bold;
-        color: #000000;
-        margin-top: 20px;
-        animation: pulse 1s infinite ease-in-out;
-      }
+    #countdown {
+      font-size: 48px;
+      font-weight: bold;
+      color: #000000;
+      margin-top: 20px;
+      animation: pulse 1s infinite ease-in-out;
+    }
 
-      #timer {
-        margin-top: 20px;
-        font-size: 16px;
-        color: #000000;
-        font-weight: bold;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-      }
+    #timer {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #000000;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
 
-      #schulteTable {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-        justify-content: center;
-        margin: 20px 0;
-      }
+    #schulteTable {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
 
-      #schulteTable div {
-        width: 60px;
-        height: 60px;
-        background: #e0e7ef;
-        border-radius: 8px;
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-        line-height: 60px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      }
+    #schulteTable div {
+      width: 60px;
+      height: 60px;
+      background: #e0e7ef;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      line-height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
 
-      #schulteTable div:hover {
-        transform: scale(1.05);
-        background: #d0d0d0;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-      }
+    #schulteTable div:hover {
+      transform: scale(1.05);
+      background: #d0d0d0;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
 
-      #schulteTable div.correct {
-        background: #000000;
-        color: white;
-        transform: scale(1.05);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-      }
+    #schulteTable div.correct {
+      background: #000000;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
 
-      #schulteTable div.active {
-        background: #f5a9a9;
-        color: white;
-      }
+    #schulteTable div.active {
+      background: #f5a9a9;
+      color: white;
+    }
 
-      button {
-        padding: 12px 18px;
-        background: #000000;
-        border: none;
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 8px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      }
+    button {
+      padding: 12px 18px;
+      background: #000000;
+      border: none;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
 
-      button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        background: #333333;
-      }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      background: #333333;
+    }
 
-      button:active {
-        transform: translateY(0);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-      #bestScore {
-        font-size: 16px;
-        margin-top: 15px;
-        color: #000000;
-        font-weight: 600;
-        margin-bottom: 15px;
-      }
+    #bestScore {
+      font-size: 16px;
+      margin-top: 15px;
+      color: #000000;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
 
-      /* Add subtle animations */
-      @keyframes pulse {
-        0%, 100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.1);
-        }
+    /* Add subtle animations */
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
       }
+      50% {
+        transform: scale(1.1);
+      }
+    }
 
-      @keyframes shake {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        50% { transform: translateX(5px); }
-        75% { transform: translateX(-5px); }
-        100% { transform: translateX(5px); }
-      }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(5px); }
+    }
+
 
      
+    a, u {
+  text-decoration: none;
+   color:#888;
+}
 
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Schulte Table</h1>
-      <p>Click numbers from 1 to 25 in ascending order</p>
-      <button id="startButton">Start Game</button>
-      <div id="countdown" class="hidden"></div>
-      <div id="gameArea" class="hidden">
-        <div id="timer">Time: 0s</div>
-        <div id="schulteTable"></div>
-      </div>
-      <div id="bestScore">Best Time: --</div>
-      <button id="restartButton" class="hidden">Go Back</button>
-      <button id="playAgainButton" class="hidden">Play Again</button>
+a:hover {
+  color: black;
+  
+}
+
+
+
+
+    /* Footer */
+    .footer {
+  font-size: 12px;
+  color: #888;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%); /* Centers the footer horizontally */
+  text-align: center;
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Schulte Table</h1>
+    <p>I nominate Myperro and AuraX founders to beat my best score.</p>
+    <button id="startButton">Start Game</button>
+    <div id="countdown" class="hidden"></div>
+    <div id="gameArea" class="hidden">
+      <div id="timer">Time: 0s</div>
+      <div id="schulteTable"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script>
-      let timerInterval, countdownInterval;
-      let timer = 0;
-      let bestScore = null;
+    <div id="bestScore">Best Time: 69</div>
+    <button id="restartButton" class="hidden">Go Back</button>
+    <button id="playAgainButton" class="hidden">Play Again</button>
 
-      const startButton = document.getElementById("startButton");
-      const countdownDiv = document.getElementById("countdown");
-      const gameArea = document.getElementById("gameArea");
-      const timerDiv = document.getElementById("timer");
-      const schulteTable = document.getElementById("schulteTable");
-      const playAgainButton = document.getElementById("playAgainButton");
-      const bestScoreDiv = document.getElementById("bestScore");
-      const restartButton = document.getElementById("restartButton");               
-      
-      startButton.addEventListener("click", startGame);
-      playAgainButton.addEventListener("click", resetGame);
-      restartButton.addEventListener("click",pager); 
-
-      function pager(){
-        location.reload();
-      }
-
-      function startGame() {
-        startButton.classList.add("hidden");
-        countdownDiv.classList.remove("hidden");
-        gameArea.classList.add("hidden");
-        playAgainButton.classList.add("hidden");
-        restartButton.classList.remove("hidden");
-
-        startCountdown(3, () => {
-          countdownDiv.classList.add("hidden");
-          gameArea.classList.remove("hidden");
-          startTimer();
-          generateSchulteTable();
-        });
-      }
-
-      const cd = new Audio('countdown.mp3');
-      function startCountdown(count, callback) {
-        countdownDiv.textContent = count;
-        cd.play();
-
-        countdownInterval = setInterval(() => {
-          count--;
-          cd.play();
-          if (count > 0) {
-            countdownDiv.textContent = count;
-          } else if(count == 0){
-            countdownDiv.textContent = `Go!`;
-          } else {
-            clearInterval(countdownInterval);
-            callback();
-          }
-        }, 1000);
-      }
-      
-      function startTimer() {
-        timer = 0;
-        timerDiv.textContent = `Time: 0s`;
-        timerInterval = setInterval(() => {
-          timer++;
-          timerDiv.textContent = `Time: ${timer}s`;
-        }, 1000);
-      }
-
-      function stopTimer() {
-        clearInterval(timerInterval);
-      }
-
-      function generateSchulteTable() {
-        schulteTable.innerHTML = "";
-        const numbers = Array.from({ length: 25 }, (_, i) => i + 1);
-        shuffleArray(numbers);
-
-        numbers.forEach(num => {
-          const cell = document.createElement("div");
-          cell.textContent = num;
-          cell.addEventListener("click", () => handleCellClick(cell, num));
-          schulteTable.appendChild(cell);
-        });
-      }
-
-      function shakeCell(cell) {
-        cell.style.animation = "shake 0.5s ease-in-out";
-        setTimeout(() => {
-          cell.style.animation = "";
-        }, 500);
-      }
-
-      const isound = new Audio("incorrect.mp3"); // Add your incorrect sound file here
-      const csound = new Audio("correct.mp3"); // Add your correct sound file here
-      
-
-      let isSoundPlaying = false;
-
-      function playCorrectSound() {
-  csound.currentTime = 0; // Restart the sound from the beginning
-  csound.play(); // Play sound
-}
-
-function playIncorrectSound() {
-  isound.currentTime = 0; // Restart the sound from the beginning
-  isound.play(); // Play sound
-}
-
-
-
-      let currentNumber = 1;
-
-      
-      function triggerConfetti() {
-    confetti({
-      particleCount: 500,  // Increase the number of particles
-      spread: 90,          // Spread particles more
-      angle: 90,
-      origin: { x: 0.5, y: 0.5 },
-      colors: ['#ffffff', '#f1f1f1', '#bdbdbd', '#000000', '#d4af37'] // Elegant color scheme
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-  const savedBestScore = localStorage.getItem('bestScore');
-  if (savedBestScore !== null) {
-    bestScore = parseInt(savedBestScore, 10);
-    bestScoreDiv.textContent = `Best Time: ${bestScore}s`;
-  }
-});
-
-      function handleCellClick(cell, num) {
-        if (num === currentNumber) {
-          cell.classList.add("correct");
-          playCorrectSound();
-          currentNumber++;
-          if (currentNumber > 25) {
-            stopTimer();
-            if (bestScore === null || timer < bestScore) {
-              bestScore = timer;
-              localStorage.setItem('bestScore', bestScore);
-              alert(`your score is `+bestScore+`s. It's the new best score 🎉`);
-              triggerConfetti();
-              bestScoreDiv.textContent = `Best Time: ${bestScore}s`;
-            } else {
-              alert(`your score is `+timer+`s.`);
-              triggerConfetti();
     
-            }
+    <div class="footer">Created by <a href="https://www.linkedin.com/in/shahdhairya245/" target="_blank">@Dhairya Shah</a></div>
+  </div>
 
-            playAgainButton.classList.remove("hidden");
-          }
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    let timerInterval, countdownInterval;
+    let timer = 0;
+    let bestScore = null;
+
+    const startButton = document.getElementById("startButton");
+    const countdownDiv = document.getElementById("countdown");
+    const gameArea = document.getElementById("gameArea");
+    const timerDiv = document.getElementById("timer");
+    const schulteTable = document.getElementById("schulteTable");
+    const playAgainButton = document.getElementById("playAgainButton");
+    const bestScoreDiv = document.getElementById("bestScore");
+    const restartButton = document.getElementById("restartButton");               
+    
+    startButton.addEventListener("click", startGame);
+    playAgainButton.addEventListener("click", resetGame);
+    restartButton.addEventListener("click",pager); 
+
+    function pager(){
+      location.reload();
+    }
+
+    function startGame() {
+      startButton.classList.add("hidden");
+      countdownDiv.classList.remove("hidden");
+      gameArea.classList.add("hidden");
+      playAgainButton.classList.add("hidden");
+      restartButton.classList.remove("hidden");
+
+      startCountdown(3, () => {
+        countdownDiv.classList.add("hidden");
+        gameArea.classList.remove("hidden");
+        startTimer();
+        generateSchulteTable();
+      });
+    }
+
+    const cd = new Audio('countdown.mp3');
+    function startCountdown(count, callback) {
+      countdownDiv.textContent = count;
+      cd.play();
+
+      countdownInterval = setInterval(() => {
+        count--;
+        cd.play();
+        if (count > 0) {
+          countdownDiv.textContent = count;
+        } else if(count == 0){
+          countdownDiv.textContent = `Go!`;
         } else {
-          playIncorrectSound();
-          shakeCell(cell);
+          clearInterval(countdownInterval);
+          callback();
         }
-      }
+      }, 1000);
+    }
+    
+    function startTimer() {
+      timer = 0;
+      timerDiv.textContent = `Time: 0s`;
+      timerInterval = setInterval(() => {
+        timer++;
+        timerDiv.textContent = `Time: ${timer}s`;
+      }, 200);  // Speeding up the timer (5 seconds in 1 second)
+    }
 
-      function resetGame() {
-        currentNumber = 1;
-        stopTimer();
-        startGame();
-      }
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
 
-      function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
+    function generateSchulteTable() {
+      schulteTable.innerHTML = "";
+      const numbers = Array.from({ length: 25 }, (_, i) => i + 1);
+      shuffleArray(numbers);
+
+      numbers.forEach(num => {
+        const cell = document.createElement("div");
+        cell.textContent = num;
+        cell.addEventListener("click", () => handleCellClick(cell, num));
+        schulteTable.appendChild(cell);
+      });
+    }
+
+    function shakeCell(cell) {
+      cell.style.animation = "shake 0.5s ease-in-out";
+      setTimeout(() => {
+        cell.style.animation = "";
+      }, 500);
+    }
+
+    const isound = new Audio("incorrect.mp3");
+    const csound = new Audio("correct.mp3");
+
+    let isSoundPlaying = false;
+
+    function playCorrectSound() {
+      csound.currentTime = 0;
+      csound.play();
+    }
+
+    function playIncorrectSound() {
+      isound.currentTime = 0;
+      isound.play();
+    }
+
+    let currentNumber = 1;
+
+    function triggerConfetti() {
+      confetti({
+        particleCount: 500,
+        spread: 90,
+        angle: 90,
+        origin: { x: 0.5, y: 0.5 },
+        colors: ['#ffffff', '#f1f1f1', '#bdbdbd', '#000000', '#d4af37']
+      });
+    }
+
+   
+
+    function handleCellClick(cell, num) {
+      if (num === currentNumber) {
+        cell.classList.add("correct");
+        playCorrectSound();
+        currentNumber++;
+        if (currentNumber > 25) {
+          stopTimer();
+          if (bestScore === null || timer < bestScore) {
+            bestScore = timer;
+            alert(`your score is `+bestScore+`s. It's the new best score 🎉`);
+            triggerConfetti();
+            bestScoreDiv.textContent = `Best Time: ${bestScore}s`;
+          } else {
+            alert(`your score is `+timer+`s.`);
+            triggerConfetti();
+          }
+
+          playAgainButton.classList.remove("hidden");
         }
+      } else {
+        playIncorrectSound();
+        shakeCell(cell);
       }
-    </script>
-  </body>
-  </html>
+    }
+
+    function resetGame() {
+      currentNumber = 1;
+      stopTimer();
+      startGame();
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+  </script>
+</body>
+</html>
