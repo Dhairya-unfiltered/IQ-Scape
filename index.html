@@ -287,21 +287,30 @@ a:hover {
 
       const isound = new Audio("incorrect.mp3"); // Add your incorrect sound file here
       const csound = new Audio("correct.mp3"); // Add your correct sound file here
-      
+      const vsound = new Audio("victory.mp3");
 
       let isSoundPlaying = false;
 
       function playCorrectSound() {
-  csound.currentTime = 0; // Restart the sound from the beginning
+        vsound.currentTime=0;
+  isound.currentTime = 0;
+  csound.currentTime = 0;
   csound.play(); // Play sound
 }
 
 function playIncorrectSound() {
-  isound.currentTime = 0; // Restart the sound from the beginning
+  vsound.currentTime=0;
+  isound.currentTime = 0;
+  csound.currentTime = 0;
   isound.play(); // Play sound
 }
 
-
+function playVictorySound(){
+  vsound.currentTime=0;
+  isound.currentTime = 0;
+  csound.currentTime = 0;
+  vsound.play();
+}
 
       let currentNumber = 1;
 
@@ -334,10 +343,11 @@ function playIncorrectSound() {
             if (bestScore === null || timer < bestScore) {
               bestScore = timer;
               localStorage.setItem('bestScore', bestScore);
+              playVictorySound();
               alert(`your score is `+bestScore+`s. It's the new personal best score 🎉`);
               triggerConfetti();
               bestScoreDiv.textContent = `Best Time: ${bestScore}s`;
-            } else {
+            } else { playVictorySound();
               alert(`your score is `+timer+`s.`);
               triggerConfetti();
     
