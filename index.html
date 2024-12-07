@@ -118,6 +118,7 @@
         cursor: pointer;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        
       }
 
       button:hover {
@@ -162,20 +163,24 @@
    color:#888;
 }
 
-a:hover {
-  color: white;
-}
+
 
     /* Footer */
     .footer {
   font-size: 12px;
   color: #888;
   position: absolute;
-  bottom: 10px;
+
   left: 50%;
   transform: translateX(-50%); /* Centers the footer horizontally */
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;  /* Add margin-top to give space for other elements */
+  margin-bottom: 10px; /* Give it some space at the bottom */
+
+}
+
+.goback{
+  margin-bottom: 20px;
 }
 
     </style>
@@ -191,8 +196,8 @@ a:hover {
         <div id="schulteTable"></div>
       </div>
       <div id="bestScore">Best Time: --</div>
-      <button id="restartButton" class="hidden">Go Back</button>
-      <button id="playAgainButton" class="hidden">Play Again</button>
+      <button id="restartButton" class="hidden" class="goback">Go Back</button>
+      <button id="playAgainButton" class="hidden" class="goback">Play Again</button>
       <div class="footer">Created by <a href="https://www.linkedin.com/in/shahdhairya245/" target="_blank">@Dhairya Shah</a></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
