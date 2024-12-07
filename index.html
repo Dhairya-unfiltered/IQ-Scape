@@ -267,13 +267,21 @@
 
       const isound = new Audio("incorrect.mp3"); // Add your incorrect sound file here
       const csound = new Audio("correct.mp3"); // Add your correct sound file here
-      function playIncorrectSound() {
-        isound.play();
-      }
+      
+
+      let isSoundPlaying = false;
 
       function playCorrectSound() {
-        csound.play();
-      }
+  csound.currentTime = 0; // Restart the sound from the beginning
+  csound.play(); // Play sound
+}
+
+function playIncorrectSound() {
+  isound.currentTime = 0; // Restart the sound from the beginning
+  isound.play(); // Play sound
+}
+
+
 
       let currentNumber = 1;
 
@@ -293,7 +301,7 @@
       function handleCellClick(cell, num) {
         if (num === currentNumber) {
           cell.classList.add("correct");
-          csound.play();
+          playCorrectSound();
           currentNumber++;
           if (currentNumber > 25) {
             stopTimer();
