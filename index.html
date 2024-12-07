@@ -296,7 +296,13 @@ function playIncorrectSound() {
     });
   }
 
- 
+  document.addEventListener("DOMContentLoaded", () => {
+  const savedBestScore = localStorage.getItem('bestScore');
+  if (savedBestScore !== null) {
+    bestScore = parseInt(savedBestScore, 10);
+    bestScoreDiv.textContent = `Best Time: ${bestScore}s`;
+  }
+});
 
       function handleCellClick(cell, num) {
         if (num === currentNumber) {
@@ -307,6 +313,7 @@ function playIncorrectSound() {
             stopTimer();
             if (bestScore === null || timer < bestScore) {
               bestScore = timer;
+              localStorage.setItem('bestScore', bestScore);
               alert(`your score is `+bestScore+`s. It's the new best score 🎉`);
               triggerConfetti();
               bestScoreDiv.textContent = `Best Time: ${bestScore}s`;
